@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Static fallbacks for link-preview scrapers. Keep in sync with CONTENT.meta -->
 <title>Recess</title>
 <meta name="description" content="Recess. The room. The person. The gathering. Auckland.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +34,8 @@ body {
 }
 
 a { color: inherit; text-decoration: none; }
+
+:focus-visible { outline: 1px solid var(--pop); outline-offset: 4px; }
 
 /* NAV */
 nav {
@@ -172,6 +175,7 @@ nav {
   background: var(--mid);
   border-bottom: 1px solid var(--rule);
   overflow: hidden;
+  scroll-margin-top: 66px;
 }
 
 .panel.active { display: block; }
@@ -351,64 +355,38 @@ footer span {
   .cta { padding: 80px 24px; }
   footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition-duration: 0.01ms !important; }
+}
 </style>
 </head>
 <body>
 
 <nav>
-  <span class="logo">Reces<span>s</span></span>
-  <div class="nav-links">
-    <a href="#" onclick="openPanel('room'); return false;">The Room</a>
-    <a href="#" onclick="openPanel('me'); return false;">Just me</a>
-    <a href="#contact">Get in touch</a>
-  </div>
+  <span class="logo" id="logo"></span>
+  <div class="nav-links" id="nav-links"></div>
 </nav>
 
 <!-- FRONT DOOR -->
 <section class="hero">
   <div class="hero-top">
-    <h1><span class="name">Recess.</span><br>Where the good stuff happens —<br><strong>so what happens next is too.</strong></h1>
+    <h1><span class="name" id="hero-name"></span><br><span id="hero-headline"></span></h1>
   </div>
-
-  <div class="three">
-    <div class="door" onclick="togglePanel('room')">
-      <span class="door-tag">The Room</span>
-      <h2>A curated group of sharp people who make each other better.</h2>
-      <button class="door-expand" id="btn-room">Tell me more</button>
-    </div>
-    <div class="door" onclick="togglePanel('me')">
-      <span class="door-tag">Just me</span>
-      <h2>One woman. For when you need the space to do something.</h2>
-      <button class="door-expand" id="btn-me">Tell me more</button>
-    </div>
-    <div class="door" onclick="togglePanel('gather')">
-      <span class="door-tag">Or</span>
-      <h2>Need a room built around something specific? I'll make it happen.</h2>
-      <button class="door-expand" id="btn-gather">Tell me more</button>
-    </div>
-  </div>
+  <div class="three" id="doors"></div>
 </section>
 
 <!-- PANEL: THE ROOM -->
 <div class="panel" id="panel-room">
   <div class="panel-inner">
-    <div>
-      <h3>Not a network. Not a programme.<br><strong>The room you've been missing.</strong></h3>
-      <div class="panel-body">
-        <p>Remember the party where you ended up talking to someone from a completely different world — and an hour later left buzzing? That didn't happen by accident. It happened because the right people were in the same room.</p>
-        <p>Recess is that room. A curated group of sharp, interesting people — deliberately mixed across sectors, roles, and worlds. Monthly. Closed door. No agenda. The conversation goes where it goes.</p>
-        <p><strong>You leave feeling more like yourself than when you arrived. Ready to go back in.</strong></p>
-      </div>
-      <p class="panel-price">$2,500 / year · Invite only · Auckland</p>
-      <p class="panel-pd">Fundable as professional development · peer learning · leadership</p>
+    <div class="panel-left">
+      <h3 id="title-room"></h3>
+      <div class="panel-body" id="body-room"></div>
+      <p class="panel-price" id="price-room"></p>
+      <p class="panel-pd" id="note-room"></p>
     </div>
-    <div class="panel-list">
-      <div class="panel-item">Monthly. Closed door. No agenda. No performance.</div>
-      <div class="panel-item">Curated cross-sector group — deliberately interesting, deliberately mixed</div>
-      <div class="panel-item">Occasional salons where rooms collide — that's when it gets electric</div>
-      <div class="panel-item">Direct line to Adele when you need to think something through</div>
-      <div class="panel-item">No homework. No speakers. No name badges.</div>
-    </div>
+    <div class="panel-list" id="list-room"></div>
   </div>
 </div>
 
@@ -416,32 +394,12 @@ footer span {
 <div class="panel" id="panel-me">
   <div class="panel-inner">
     <div>
-      <img src="adele.jpeg" alt="Adele Cubitt Cohen" class="adele-photo">
+      <img src="" alt="" class="adele-photo" id="photo-me">
     </div>
-    <div>
-      <h3>Me. For the moments when you need it.<br><strong>And for more life when you don't.</strong></h3>
-      <div class="panel-body">
-        <p>We all need a little something. I'm the less obvious kind — but maybe the obvious is what's got us here.</p>
-        <p>Send me the doc. Talk me through the thing. Let me find the point — or light the spark so you do. Or just a natter, because sometimes a perfectly timed conversation and a laugh is all you need to get back to brilliant.</p>
-        <p>Like a work wife. But at this stage of your career, when that's harder to find.</p>
-        <p>You be you. Not the version that shows up at work. The one who doesn't know if that thing is good, or has been handed a dog's breakfast with two hours to turn it around, or whose spider senses are firing and doesn't know whether to go red or blue pill.</p>
-        <p>I'll help. I'll turn it around. I'll call bullshit — theirs too. And ignite your spark. Because there is nothing I love more than helping people think, finding the point, and a bit of well-placed disruption.</p>
-        <p>Sharp thinker, high EQ. Human rights, humanitarian protection, philanthropy strategies, social impact and health solutions. Generalist by design. Sharp and witty by nature.</p>
-      </div>
-      <div class="panel-offerings">
-        <div class="panel-offering">
-          <span class="offering-label">The Call</span>
-          <span class="offering-desc">The brilliant friend who happens to know things. Send me to the meeting. Talk me through it. Fast, sharp, no faff.</span>
-        </div>
-        <div class="panel-offering">
-          <span class="offering-label">The Retainer</span>
-          <span class="offering-desc">Outside-in perspective, on tap. The inspo, the cut-through, the nudge when you're avoiding. Someone who'll say what nobody else will. Or come with you and be your eyes and ears.</span>
-        </div>
-        <div class="panel-offering">
-          <span class="offering-label">The Work</span>
-          <span class="offering-desc">When the problem is real and needs doing properly. Strategy, advisory, partnerships, corporate affairs. I find the way forward — and ask the people nobody else thought to ask.</span>
-        </div>
-      </div>
+    <div class="panel-left">
+      <h3 id="title-me"></h3>
+      <div class="panel-body" id="body-me"></div>
+      <div class="panel-offerings" id="offerings-me"></div>
     </div>
   </div>
 </div>
@@ -449,82 +407,333 @@ footer span {
 <!-- PANEL: OR -->
 <div class="panel" id="panel-gather">
   <div class="panel-inner">
-    <div>
-      <h3>A room built around<br><strong>what you actually need.</strong></h3>
-      <div class="panel-body">
-        <p>A team that's stuck. An organisation that needs outside thinking. A problem that needs the right people in the same space. I'll design it, cast it, and make it happen.</p>
-        <p>Not a workshop. Not a conference. Just the right conditions — and something real comes out the other side.</p>
-        <p><strong>Get in touch and tell me what you need.</strong></p>
-      </div>
-      <p class="panel-pd">Fundable as professional development · leadership · strategy</p>
+    <div class="panel-left">
+      <h3 id="title-gather"></h3>
+      <div class="panel-body" id="body-gather"></div>
+      <p class="panel-price" id="price-gather"></p>
+      <p class="panel-pd" id="note-gather"></p>
     </div>
-    <div class="panel-list">
-      <div class="panel-item">Bespoke — built around your problem or goal</div>
-      <div class="panel-item">Cast across sectors and worlds you wouldn't normally reach</div>
-      <div class="panel-item">Adele in the room as host, catalyst, connector</div>
-      <div class="panel-item">Something real comes out the other side</div>
-    </div>
+    <div class="panel-list" id="list-gather"></div>
   </div>
 </div>
 
 <!-- CTA -->
 <section class="cta" id="contact">
-  <h2>You'll know if this is <strong>you.</strong></h2>
-  <p class="cta-note">No form. No calendar link. Just an email.</p>
-  <a href="mailto:hello@recess.nz" class="cta-email">hello@recess.nz</a>
+  <h2 id="cta-headline"></h2>
+  <p class="cta-note" id="cta-note"></p>
+  <a href="#" class="cta-email" id="cta-email"></a>
 </section>
 
 <footer>
-  <span>Recess · Auckland</span>
-  <span>© 2026 Adele Cubitt Cohen</span>
+  <span id="footer-left"></span>
+  <span id="footer-right"></span>
 </footer>
 
 <script>
-  let current = null;
+/* ==========================================================================
+   CONTENT — every word on the site lives here.
 
-  function togglePanel(id) {
-    const panel = document.getElementById('panel-' + id);
-    const btn = document.getElementById('btn-' + id);
+   Editing rules:
+     · Type between the backticks ` ` only. Never delete a backtick or a comma.
+     · **double asterisks** make words stand out.
+     · A real line break inside a string becomes a line break on the page.
+     · Apostrophes and quote marks are safe. Backticks are not — avoid them.
+     · Add or remove items in a [ list ] freely. Keep the commas between them.
 
-    if (current && current !== id) {
-      document.getElementById('panel-' + current).classList.remove('active');
-      document.getElementById('btn-' + current).classList.remove('open');
-      document.getElementById('btn-' + current).textContent = 'Tell me more';
+   See copy.md for the plain-language version of everything below.
+   ========================================================================== */
+
+const CONTENT = {
+
+  /* ---------- PAGE ---------- */
+  meta: {
+    title: `Recess`,
+    description: `Recess. The room. The person. The gathering. Auckland.`
+  },
+
+  /* ---------- NAV ---------- */
+  nav: {
+    logo: `Recess`,
+    links: [
+      { label: `The Room`,     panel: `room` },
+      { label: `Just me`,      panel: `me` },
+      { label: `Get in touch`, href:  `#contact` }
+    ]
+  },
+
+  /* ---------- HERO ---------- */
+  hero: {
+    name: `Recess.`,
+    headline: `Where the good stuff happens —
+**so what happens next is too.**`
+  },
+
+  /* ---------- BUTTON LABELS ---------- */
+  buttons: {
+    open:  `Tell me more`,
+    close: `Close`
+  },
+
+  /* ---------- PANELS ----------
+     The keys (room / me / gather) are load-bearing — don't rename them.
+     Reorder them to reorder the three door cards.                         */
+  panels: {
+
+    /* ===== THE ROOM ===== */
+    room: {
+      door: {
+        tag: `The Room`,
+        heading: `A curated group of sharp people who make each other better.`
+      },
+      title: `Not a network. Not a programme.
+**The room you've been missing.**`,
+      body: [
+        `Remember the party where you ended up talking to someone from a completely different world — and an hour later left buzzing? That didn't happen by accident. It happened because the right people were in the same room.`,
+        `Recess is that room. A curated group of sharp, interesting people — deliberately mixed across sectors, roles, and worlds. Monthly. Closed door. No agenda. The conversation goes where it goes.`,
+        `**You leave feeling more like yourself than when you arrived. Ready to go back in.**`
+      ],
+      price: `$2,500 / year · Invite only · Auckland`,
+      note: `Fundable as professional development · peer learning · leadership`,
+      list: [
+        `Monthly. Closed door. No agenda. No performance.`,
+        `Curated cross-sector group — deliberately interesting, deliberately mixed`,
+        `Occasional salons where rooms collide — that's when it gets electric`,
+        `Direct line to Adele when you need to think something through`,
+        `No homework. No speakers. No name badges.`
+      ]
+    },
+
+    /* ===== JUST ME ===== */
+    me: {
+      door: {
+        tag: `Just me`,
+        heading: `One woman. For when you need the space to do something.`
+      },
+      photo: {
+        src: `adele.jpeg`,
+        alt: `Adele Cubitt Cohen`
+      },
+      title: `Me. For the moments when you need it.
+**And for more life when you don't.**`,
+      body: [
+        `We all need a little something. I'm the less obvious kind — but maybe the obvious is what's got us here.`,
+        `Send me the doc. Talk me through the thing. Let me find the point — or light the spark so you do. Or just a natter, because sometimes a perfectly timed conversation and a laugh is all you need to get back to brilliant.`,
+        `Like a work wife. But at this stage of your career, when that's harder to find.`,
+        `You be you. Not the version that shows up at work. The one who doesn't know if that thing is good, or has been handed a dog's breakfast with two hours to turn it around, or whose spider senses are firing and doesn't know whether to go red or blue pill.`,
+        `I'll help. I'll turn it around. I'll call bullshit — theirs too. And ignite your spark. Because there is nothing I love more than helping people think, finding the point, and a bit of well-placed disruption.`,
+        `Sharp thinker, high EQ. Human rights, humanitarian protection, philanthropy strategies, social impact and health solutions. Generalist by design. Sharp and witty by nature.`
+      ],
+      offerings: [
+        {
+          label: `The Call`,
+          desc: `The brilliant friend who happens to know things. Send me to the meeting. Talk me through it. Fast, sharp, no faff.`
+        },
+        {
+          label: `The Retainer`,
+          desc: `Outside-in perspective, on tap. The inspo, the cut-through, the nudge when you're avoiding. Someone who'll say what nobody else will. Or come with you and be your eyes and ears.`
+        },
+        {
+          label: `The Work`,
+          desc: `When the problem is real and needs doing properly. Strategy, advisory, partnerships, corporate affairs. I find the way forward — and ask the people nobody else thought to ask.`
+        }
+      ]
+    },
+
+    /* ===== OR ===== */
+    gather: {
+      door: {
+        tag: `Or`,
+        heading: `Need a room built around something specific? I'll make it happen.`
+      },
+      title: `A room built around
+**what you actually need.**`,
+      body: [
+        `A team that's stuck. An organisation that needs outside thinking. A problem that needs the right people in the same space. I'll design it, cast it, and make it happen.`,
+        `Not a workshop. Not a conference. Just the right conditions — and something real comes out the other side.`,
+        `**Get in touch and tell me what you need.**`
+      ],
+      note: `Fundable as professional development · leadership · strategy`,
+      list: [
+        `Bespoke — built around your problem or goal`,
+        `Cast across sectors and worlds you wouldn't normally reach`,
+        `Adele in the room as host, catalyst, connector`,
+        `Something real comes out the other side`
+      ]
+    }
+  },
+
+  /* ---------- CONTACT ---------- */
+  contact: {
+    headline: `You'll know if this is **you.**`,
+    note: `No form. No calendar link. Just an email.`,
+    email: `hello@recess.nz`
+  },
+
+  /* ---------- FOOTER ---------- */
+  footer: {
+    left:  `Recess · Auckland`,
+    right: `© 2026 Adele Cubitt Cohen`
+  }
+};
+
+
+/* ==========================================================================
+   RENDER — no copy below this line. Nothing here needs editing.
+   ========================================================================== */
+
+function fmt(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\n/g, '<br>');
+}
+
+function attr(s) {
+  return String(s == null ? '' : s).replace(/"/g, '&quot;');
+}
+
+function setHTML(id, html) {
+  const node = document.getElementById(id);
+  if (node) node.innerHTML = html;
+}
+
+function setOptional(id, text) {
+  const node = document.getElementById(id);
+  if (!node) return;
+  if (!text) { node.style.display = 'none'; return; }
+  node.style.display = '';
+  node.innerHTML = fmt(text);
+}
+
+function render() {
+  /* meta */
+  document.title = CONTENT.meta.title;
+  const desc = document.querySelector('meta[name="description"]');
+  if (desc) desc.setAttribute('content', CONTENT.meta.description);
+
+  /* logo — final character takes the accent colour */
+  const logo = CONTENT.nav.logo;
+  setHTML('logo', fmt(logo.slice(0, -1)) + '<span>' + fmt(logo.slice(-1)) + '</span>');
+
+  /* nav */
+  setHTML('nav-links', CONTENT.nav.links.map(l =>
+    l.panel
+      ? `<a href="#" data-panel="${attr(l.panel)}">${fmt(l.label)}</a>`
+      : `<a href="${attr(l.href)}">${fmt(l.label)}</a>`
+  ).join(''));
+
+  /* hero */
+  setHTML('hero-name', fmt(CONTENT.hero.name));
+  setHTML('hero-headline', fmt(CONTENT.hero.headline));
+
+  /* door cards */
+  setHTML('doors', Object.keys(CONTENT.panels).map(id => {
+    const d = CONTENT.panels[id].door;
+    return `<div class="door" data-panel="${attr(id)}">
+      <span class="door-tag">${fmt(d.tag)}</span>
+      <h2>${fmt(d.heading)}</h2>
+      <button class="door-expand" id="btn-${attr(id)}">${fmt(CONTENT.buttons.open)}</button>
+    </div>`;
+  }).join(''));
+
+  /* panels */
+  Object.keys(CONTENT.panels).forEach(id => {
+    const p = CONTENT.panels[id];
+
+    setHTML('title-' + id, fmt(p.title));
+    setHTML('body-' + id, (p.body || []).map(t => `<p>${fmt(t)}</p>`).join(''));
+    setOptional('price-' + id, p.price);
+    setOptional('note-' + id, p.note);
+
+    if (p.list) {
+      setHTML('list-' + id, p.list.map(t =>
+        `<div class="panel-item">${fmt(t)}</div>`
+      ).join(''));
     }
 
-    if (panel.classList.contains('active')) {
-      panel.classList.remove('active');
-      btn.classList.remove('open');
-      btn.textContent = 'Tell me more';
-      current = null;
-    } else {
-      panel.classList.add('active');
-      btn.classList.add('open');
-      btn.textContent = 'Close';
-      current = id;
-      setTimeout(() => {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
+    if (p.offerings) {
+      setHTML('offerings-' + id, p.offerings.map(o =>
+        `<div class="panel-offering">
+          <span class="offering-label">${fmt(o.label)}</span>
+          <span class="offering-desc">${fmt(o.desc)}</span>
+        </div>`
+      ).join(''));
     }
+
+    if (p.photo) {
+      const img = document.getElementById('photo-' + id);
+      if (img) { img.src = p.photo.src; img.alt = p.photo.alt; }
+    }
+  });
+
+  /* contact */
+  setHTML('cta-headline', fmt(CONTENT.contact.headline));
+  setOptional('cta-note', CONTENT.contact.note);
+  const mail = document.getElementById('cta-email');
+  if (mail) {
+    mail.href = 'mailto:' + CONTENT.contact.email;
+    mail.textContent = CONTENT.contact.email;
   }
 
-  function openPanel(id) {
-    if (current === id) return;
-    if (current) {
-      document.getElementById('panel-' + current).classList.remove('active');
-      document.getElementById('btn-' + current).classList.remove('open');
-      document.getElementById('btn-' + current).textContent = 'Tell me more';
-    }
-    const panel = document.getElementById('panel-' + id);
-    const btn = document.getElementById('btn-' + id);
-    panel.classList.add('active');
+  /* footer */
+  setHTML('footer-left', fmt(CONTENT.footer.left));
+  setHTML('footer-right', fmt(CONTENT.footer.right));
+}
+
+
+/* ==========================================================================
+   PANEL BEHAVIOUR
+   ========================================================================== */
+
+let current = null;
+
+function closePanel(id) {
+  const panel = document.getElementById('panel-' + id);
+  const btn = document.getElementById('btn-' + id);
+  if (panel) panel.classList.remove('active');
+  if (btn) {
+    btn.classList.remove('open');
+    btn.textContent = CONTENT.buttons.open;
+    btn.setAttribute('aria-expanded', 'false');
+  }
+}
+
+function openPanel(id) {
+  if (current === id) return;
+  if (current) closePanel(current);
+
+  const panel = document.getElementById('panel-' + id);
+  const btn = document.getElementById('btn-' + id);
+  if (!panel) return;
+
+  panel.classList.add('active');
+  if (btn) {
     btn.classList.add('open');
-    btn.textContent = 'Close';
-    current = id;
-    setTimeout(() => {
-      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 50);
+    btn.textContent = CONTENT.buttons.close;
+    btn.setAttribute('aria-expanded', 'true');
   }
+  current = id;
+
+  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+}
+
+function togglePanel(id) {
+  if (current === id) { closePanel(id); current = null; return; }
+  openPanel(id);
+}
+
+document.addEventListener('click', e => {
+  const trigger = e.target.closest('[data-panel]');
+  if (!trigger) return;
+  e.preventDefault();
+  const id = trigger.dataset.panel;
+  if (trigger.tagName === 'A') openPanel(id);
+  else togglePanel(id);
+});
+
+render();
 </script>
 
 </body>
